@@ -21,6 +21,7 @@ export default () => {
             </Head>
 
             <h2>Account page</h2>
+            <p>Logged in as: {user.email}</p>
             <a href='#' onClick={logoutUser}>Logout</a>
         </div>
     )
