@@ -1,5 +1,8 @@
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import AuthContext from '../context/AuthContext'
 
 import styles from '../styles/Header.module.css'
 
@@ -10,6 +13,8 @@ export default () => {
         e.preventDefault()
         router.back()
     }
+
+    const { user } = useContext(AuthContext)
 
     return (
         <div className={styles.nav}>
@@ -26,6 +31,18 @@ export default () => {
                         </h1>
                     </a>
                 </Link>
+            </div>
+
+            <div className={styles.auth}>
+                {user ? (
+                    <Link href='/account'>
+                        <a>{user.email}</a>
+                    </Link>
+                ) : (
+                    <Link href='/login'>
+                        <a>Log in</a>
+                    </Link>
+                )}
             </div>
         </div>
     )
