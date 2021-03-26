@@ -63,7 +63,7 @@ module.exports = {
 
         const { user } = ctx.state
 
-        const BASE_URL = ctx.request.header.origin || 'http://localhost:3000'
+        const BASE_URL = ctx.request.headers.origin || 'http://localhost:3000'
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -95,5 +95,29 @@ module.exports = {
         })
 
         return { id: session.id }
+    },
+    /**
+     * Given a checkout_session, verifies payment and update order
+     * @param {any} ctx 
+     * @returns 
+     */
+    async confirm(ctx) {
+        const { checkout_session } = ctx.request.body
+        console.log(checkout_session);
+
+        const session = await stripe.checkout.sessions.retrieve(checkout_session)
+        console.log(session);
+
+        if (session.payment_status === 'paid') {
+            const updateOrder = await strapi.services.order.update({
+                checkout_session
+            }, {
+                status: 'paid'
+            })
+
+            return sanitizeEntity(updateOrder, { model: strapi.models.order })
+        } else {
+            ctx.throw(400, 'Payment was not successful, please contact for support')
+        }
     }
 };
