@@ -10,7 +10,7 @@ npm run develop
 ```
 
 Open [http://localhost:1337](http://localhost:1337) with your browser to sign up or sign into Strapi.
-
+<hr />
 And run the frontend UI:
 
 ```bash
@@ -19,6 +19,13 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to open the user interface.
+<hr />
+
+Sign up for Magic:
+    [https://magic.link/](https://magic.link/)
+
+Sign up for Stripe:
+    [https://stripe.com/](https://stripe.com/)
 
 ## Learn More
 
